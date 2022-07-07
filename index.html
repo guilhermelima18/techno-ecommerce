@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./vue.js"></script>
+    <title>Techno</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <img class="logo" src="./assets/techno.svg" alt="Logo Techno" />
+        <div class="carrinho_menu">{{carrinhoTotal | formatPrice}} |</div>
+      </header>
+
+      <section class="produtos">
+        <div
+          class="produto"
+          @click="openModal(produtoItem.id)"
+          v-for="produtoItem in produtos"
+        >
+          <img
+            class="produto_img"
+            :src="produtoItem.img"
+            alt="produtoItem.nome"
+          />
+          <div class="produto_info">
+            <span class="produto_preco"
+              >{{produtoItem.preco | formatPrice}}</span
+            >
+            <h2 class="produto_titulo">{{produtoItem.nome}}</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="modal" v-if="modalIsOpen" @click="closeModal">
+        <div class="modal_container">
+          <div class="modal_img">
+            <img :src="produto.img" :alt="produto.nome" />
+          </div>
+          <div class="modal_dados">
+            <button class="modal_fechar" @click="modalIsOpen = false">X</button>
+            <span class="modal_preco">{{produto.preco | formatPrice}}</span>
+            <h2 class="modal_titulo">{{produto.nome}}</h2>
+            <p class="modal_descricao">{{produto.descricao}}</p>
+            <button class="modal_btn" @click="adicionarItemCarrinho(produto)">
+              Adicionar item
+            </button>
+          </div>
+          <div class="avaliacoes">
+            <h2 class="avaliacoes_subtitulo">Avaliações</h2>
+            <ul>
+              <li class="avaliacao" v-for="avaliacao in produto.reviews">
+                <p class="avaliacao_descricao">{{avaliacao.descricao}}</p>
+                <p class="avaliacao_usuario">
+                  {{avaliacao.nome}} | {{avaliacao.estrelas}} estrelas
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
