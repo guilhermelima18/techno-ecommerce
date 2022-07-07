@@ -76,7 +76,7 @@ const vm = new Vue({
 
       if (indexProductExists !== -1) {
         if (this.carrinho[indexProductExists].estoque === 0) {
-          alert("Produto sem estoque");
+          this.alert("Produto sem estoque");
           this.isDisabledButton = true;
           return;
         }
